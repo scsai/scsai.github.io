@@ -6,6 +6,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <!-- MathJax for rendering equations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
 </head>
 <body class="is-preload">
 
@@ -15,32 +17,10 @@
         <!-- Header -->
         <header id="header">
             <h1><a href="index.html">Amazon SCSAI</a></h1>
-            <nav class="links">
-                <ul>
-                    <li><a href="#">Blogs</a></li>
-                    <li><a href="about.html">About US</a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">Hiring</a></li>
-                    <li><a href="#">中文</a></li>
-                </ul>
-            </nav>
-            <nav class="main">
-                <ul>
-                    <li class="search">
-                        <a class="fa-search" href="#search">Search</a>
-                        <form id="search" method="get" action="#">
-                            <input type="text" name="query" placeholder="Search" />
-                        </form>
-                    </li>
-                    <li class="menu">
-                        <a class="fa-bars" href="#menu">Menu</a>
-                    </li>
-                </ul>
-            </nav>
         </header>
 
         <!-- Main -->
-        <div id="main">
+        <div id="main" style="margin: 0 auto; max-width: 800px; padding: 20px;">
             <article class="post">
                 <header>
                     <div class="title">
@@ -56,6 +36,7 @@
                 </div>
             </article>
         </div>
+
     </div>
 
     <!-- Scripts -->
@@ -65,9 +46,8 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
     <script>
-        // Get query parameter for the Markdown file
+        // Get the query parameter for the Markdown file
         const urlParams = new URLSearchParams(window.location.search);
         const postFile = urlParams.get('post');
 
@@ -85,7 +65,7 @@
                     const converter = new showdown.Converter();
                     const html = converter.makeHtml(markdown);
 
-                    // Extract the title
+                    // Extract the first <h1> tag as the title
                     const tempDiv = document.createElement("div");
                     tempDiv.innerHTML = html;
                     const titleElement = tempDiv.querySelector("h1");
@@ -105,7 +85,9 @@
                     document.getElementById("blog-content").innerHTML = `<p>Error: ${error.message}</p>`;
                     console.error(error);
                 });
+        } else {
+            document.getElementById("blog-content").innerHTML = '<p>Error: No blog post specified.</p>';
+        }
     </script>
-
 </body>
 </html>
