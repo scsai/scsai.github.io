@@ -6,7 +6,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <!-- MathJax for rendering equations -->
+    <!-- MathJax Configuration -->
+    <script type="text/javascript">
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true
+            },
+            options: {
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+                ignoreHtmlClass: 'tex2jax_ignore'
+            }
+        };
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
 </head>
 <body class="is-preload">
@@ -47,15 +61,12 @@
     <script src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     <script>
-        // Get the query parameter for the Markdown file
         const urlParams = new URLSearchParams(window.location.search);
         const postFile = urlParams.get('post');
 
         if (postFile) {
-            // Construct the path to the Markdown file inside the 'posts' folder
             const postPath = `posts/${postFile}`;
 
-            // Fetch and render the Markdown file
             fetch(postPath)
                 .then(response => {
                     if (!response.ok) throw new Error("Failed to load blog content.");
@@ -65,20 +76,16 @@
                     const converter = new showdown.Converter();
                     const html = converter.makeHtml(markdown);
 
-                    // Extract the first <h1> tag as the title
                     const tempDiv = document.createElement("div");
                     tempDiv.innerHTML = html;
                     const titleElement = tempDiv.querySelector("h1");
                     const title = titleElement ? titleElement.textContent : "Untitled";
 
-                    // Set the blog title
                     document.getElementById("blog-title").textContent = title;
 
-                    // Remove the <h1> from the blog content and display the rest
                     if (titleElement) titleElement.remove();
                     document.getElementById("blog-content").innerHTML = tempDiv.innerHTML;
 
-                    // Re-render MathJax equations
                     MathJax.typesetPromise();
                 })
                 .catch(error => {
