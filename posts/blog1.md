@@ -56,7 +56,7 @@ This formulation ensures that the weights are scaled and rounded to discrete lev
 
 ### 4-bit Quantization Can Render Existing Machine Unlearning Techniques Ineffective!
 
-![Figure 1](blog1/figure1.png "Figure 1")
+![Figure 1](https://scsai.github.io/posts/blog1/figure1.png "Figure 1")
 
 When using machine unlearning to remove specific knowledge—such as copyrighted or private content—from large language models (LLMs), one might assume the process is effective. However, we discovered that applying 4-bit quantization to a "forgotten" model can partially or fully recover the knowledge it was supposed to forget.
 
@@ -68,7 +68,7 @@ Specifically, we examined six unlearning methods—combining *Gradient Ascent (G
 
 #### Impact of Quantization Precision
 
-![Figure 3](posts/blog1/figure3.png "Figure 3")
+![Figure 3](https://scsai.github.io/posts/blog1/figure3.png "Figure 3")
 
 Furthermore, Our experiments revealed that the precision level of quantization has a significant effect. For example, 8-bit quantization had a much smaller impact on unlearning, with results close to the full-precision model. In contrast, 4-bit quantization caused severe degradation in unlearning performance. These findings were consistent across benchmark datasets like **NEWS** (BBC news articles) and **BOOKS** (Harry Potter series).
 
@@ -84,7 +84,7 @@ Using advanced 4-bit quantization methods like _GPTQ_ and _AWQ_, we observed sim
 
 The root cause lies in the small weight changes made during unlearning, constrained by small learning rates and utility preservation goals. These subtle changes are easily overridden during quantization, as weights from the original and forgotten models map to the same discrete values.
 
-![Figure 4](posts/blog1/figure4.png "Figure 4")
+![Figure 4](https://scsai.github.io/posts/blog1/figure4.png "Figure 4")
 
 To address this, we developed the **SURE framework (Saliency-Based Unlearning with a Large Learning Rate)**. This framework constructs module-level saliency maps to guide the unlearning process, focusing on components most related to the forgotten data while minimizing disruption to other functionalities. By using larger learning rates selectively, SURE prevents knowledge recovery after quantization. Specifically, we compute a saliency score $s_i$ for each module by aggregating the gradients of the forgetting loss with respect to $\theta_i$:
 
