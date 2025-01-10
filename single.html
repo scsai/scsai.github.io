@@ -56,35 +56,6 @@
                 </div>
             </article>
         </div>
-
-        <!-- Sidebar -->
-        <section id="sidebar">
-            <section id="intro">
-                <a href="#" class="logo"><img src="images/logo.png" alt="" /></a>
-                <header>
-                    <h2>Amazon SCSAI</h2>
-                    <p>Blogs by Search Conversational Science and AI.</p>
-                </header>
-            </section>
-            <section class="blurb">
-                <h2>About</h2>
-                <p>We are the Search and Conversation Science & AI (SCSAI) team at Amazon...</p>
-                <ul class="actions">
-                    <li><a href="about.html" class="button">Learn More</a></li>
-                </ul>
-            </section>
-            <section id="footer">
-                <ul class="icons">
-                    <li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-                    <li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
-                    <li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
-                    <li><a href="#" class="icon solid fa-rss"><span class="label">RSS</span></a></li>
-                    <li><a href="#" class="icon solid fa-envelope"><span class="label">Email</span></a></li>
-                </ul>
-                <p class="copyright">&copy; Amazon SCSAI team.</p>
-            </section>
-        </section>
-
     </div>
 
     <!-- Scripts -->
@@ -94,6 +65,7 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
     <script>
         // Get query parameter for the Markdown file
         const urlParams = new URLSearchParams(window.location.search);
@@ -104,22 +76,35 @@
             const postPath = `posts/${postFile}`;
 
             // Fetch and render the Markdown file
-            fetch('posts/blog1.md')
+            fetch(postPath)
                 .then(response => {
                     if (!response.ok) throw new Error("Failed to load blog content.");
                     return response.text();
                 })
                 .then(markdown => {
                     const converter = new showdown.Converter();
-                    document.getElementById('blog-content').innerHTML = converter.makeHtml(markdown);
+                    const html = converter.makeHtml(markdown);
+
+                    // Extract the title
+                    const tempDiv = document.createElement("div");
+                    tempDiv.innerHTML = html;
+                    const titleElement = tempDiv.querySelector("h1");
+                    const title = titleElement ? titleElement.textContent : "Untitled";
+
+                    // Set the blog title
+                    document.getElementById("blog-title").textContent = title;
+
+                    // Remove the <h1> from the blog content and display the rest
+                    if (titleElement) titleElement.remove();
+                    document.getElementById("blog-content").innerHTML = tempDiv.innerHTML;
+
+                    // Re-render MathJax equations
+                    MathJax.typesetPromise();
                 })
                 .catch(error => {
-                    document.getElementById('blog-content').innerHTML = `<p>Error: ${error.message}</p>`;
+                    document.getElementById("blog-content").innerHTML = `<p>Error: ${error.message}</p>`;
                     console.error(error);
                 });
-        } else {
-            document.getElementById('blog-content').innerHTML = '<p>Error: No blog post specified.</p>';
-        }
     </script>
 
 </body>

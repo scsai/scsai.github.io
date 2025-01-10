@@ -1,3 +1,5 @@
+# LLM Quantization
+
 **What is a Large Language Model (LLM)?**
 
 Large Language Models (LLMs) are advanced machine learning models trained on vast amounts of text data to understand and generate human-like language. These models, such as GPT-4 and Claude, are built on architectures like the Transformer, which enables them to process context efficiently across large text sequences. LLMs excel in tasks such as text generation, question answering, summarization, and translation. However, their training also inadvertently absorbs sensitive information or biases, raising ethical and legal concerns about their use.
