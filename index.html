@@ -90,74 +90,135 @@
 
 				<!-- Main -->
 					<div id="main">
-						<div id="blog-list">
-					        <h1>Blog Posts</h1>
-					        <div id="posts-container">Loading...</div>
-					    </div>
+				        <header>
+				            <h1>Blog Posts</h1>
+				        </header>
+				        <section id="posts-container">
+				            Loading...
+				        </section>
 
-					    <script>
-					        // Load posts.json and render the blog listing
-					        fetch('posts/posts.json')
-					            .then(response => response.json())
-					            .then(posts => {
-					                const container = document.getElementById('posts-container');
-					                container.innerHTML = ''; // Clear loading message
+				        <!-- Pagination -->
+				        <ul class="actions pagination">
+				            <li><a href="#" id="prev-page" class="button large previous">Previous Page</a></li>
+				            <li><a href="#" id="next-page" class="button large next">Next Page</a></li>
+				        </ul>
+				    </div>
 
-					                if (posts.length === 0) {
-					                    container.innerHTML = '<p>No posts available.</p>';
-					                    return;
-					                }
+				    <script>
+				        const POSTS_PER_PAGE = 5; // Number of posts per page
+				        let currentPage = 1; // Start on the first page
+				        let posts = []; // Array to hold posts data
 
-					                posts.forEach(post => {
-					                    const article = document.createElement('article');
-					                    article.className = 'post';
+				        // Function to render posts for the current page
+				        function renderPosts() {
+				            const container = document.getElementById('posts-container');
+				            container.innerHTML = ''; // Clear previous posts
 
-					                    article.innerHTML = `
-					                        <header>
-					                            <div class="title">
-					                                <h2><a href="single.html?post=${post.file}">${post.title}</a></h2>
-					                                <p>${post.full_title}</p>
-					                            </div>
-					                            <div class="meta">
-					                                <time class="published" datetime="${post.date}">${new Date(post.date).toLocaleDateString()}</time>
-					                                <a href="#" class="author">
-					                                    <span class="name">${post.author}</span>
-					                                    <img src="images/avatar.jpg" alt="Author Avatar" />
-					                                </a>
-					                            </div>
-					                        </header>
-					                        <a href="single.html?post=${post.file}" class="image featured">
-					                            <img src="posts/${post.file.replace('.md', '')}/figure1.png" alt="Featured Image" />
-					                        </a>
-					                        <p>${post.abstract || ''}</p>
-					                        <footer>
-					                            <ul class="actions">
-					                                <li><a href="single.html?post=${post.file}" class="button large">Continue Reading</a></li>
-					                            </ul>
-					                            <ul class="stats">
-					                                <li><a href="#">General</a></li>
-					                                <li><a href="#" class="icon solid fa-heart">28</a></li>
-					                                <li><a href="#" class="icon solid fa-comment">128</a></li>
-					                            </ul>
-					                        </footer>
-					                    `;
+				            // Calculate the starting and ending index for the current page
+				            const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+				            const endIndex = startIndex + POSTS_PER_PAGE;
+				            const postsToRender = posts.slice(startIndex, endIndex);
 
-					                    container.appendChild(article);
-					                });
-					            })
-					            .catch(error => {
-					                console.error('Error loading posts:', error);
-					                document.getElementById('posts-container').innerHTML = '<p>Error loading posts.</p>';
-					            });
-					    </script>
+				            if (postsToRender.length === 0) {
+				                container.innerHTML = '<p>No posts available.</p>';
+				                return;
+				            }
 
-						<!-- Pagination -->
-							<ul class="actions pagination">
-								<li><a href="" class="disabled button large previous">Previous Page</a></li>
-								<li><a href="#" class="button large next">Next Page</a></li>
-							</ul>
+				            postsToRender.forEach(post => {
+				                const article = document.createElement('article');
+				                article.className = 'post';
 
-					</div>
+				                article.innerHTML = `
+				                    <header>
+				                        <div class="title">
+				                            <h2><a href="single.html?post=${post.file}">${post.title}</a></h2>
+				                            <p>${post.full_title}</p>
+				                        </div>
+				                        <div class="meta">
+				                            <time class="published" datetime="${post.date}">${new Date(post.date).toLocaleDateString()}</time>
+				                            <a href="#" class="author">
+				                                <span class="name">${post.author}</span>
+				                                <img src="images/avatar.jpg" alt="Author Avatar" />
+				                            </a>
+				                        </div>
+				                    </header>
+				                    <a href="single.html?post=${post.file}" class="image featured">
+				                        <img src="posts/${post.file.replace('.md', '')}/figure1.png" alt="Featured Image" />
+				                    </a>
+				                    <p>${post.abstract || ''}</p>
+				                    <footer>
+				                        <ul class="actions">
+				                            <li><a href="single.html?post=${post.file}" class="button large">Continue Reading</a></li>
+				                        </ul>
+				                        <ul class="stats">
+				                            <li><a href="#">General</a></li>
+				                            <li><a href="#" class="icon solid fa-heart">28</a></li>
+				                            <li><a href="#" class="icon solid fa-comment">128</a></li>
+				                        </ul>
+				                    </footer>
+				                `;
+
+				                container.appendChild(article);
+				            });
+
+				            updatePaginationControls();
+				        }
+
+				        // Function to update the state of pagination buttons
+				        function updatePaginationControls() {
+				            const prevButton = document.getElementById('prev-page');
+				            const nextButton = document.getElementById('next-page');
+
+				            // Disable the previous button if on the first page
+				            if (currentPage === 1) {
+				                prevButton.classList.add('disabled');
+				                prevButton.href = '#';
+				            } else {
+				                prevButton.classList.remove('disabled');
+				                prevButton.href = '#';
+				            }
+
+				            // Disable the next button if on the last page
+				            const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+				            if (currentPage === totalPages) {
+				                nextButton.classList.add('disabled');
+				                nextButton.href = '#';
+				            } else {
+				                nextButton.classList.remove('disabled');
+				                nextButton.href = '#';
+				            }
+				        }
+
+				        // Event listeners for pagination buttons
+				        document.getElementById('prev-page').addEventListener('click', event => {
+				            event.preventDefault();
+				            if (currentPage > 1) {
+				                currentPage--;
+				                renderPosts();
+				            }
+				        });
+
+				        document.getElementById('next-page').addEventListener('click', event => {
+				            event.preventDefault();
+				            const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+				            if (currentPage < totalPages) {
+				                currentPage++;
+				                renderPosts();
+				            }
+				        });
+
+				        // Fetch posts.json and initialize the page
+				        fetch('posts/posts.json')
+				            .then(response => response.json())
+				            .then(data => {
+				                posts = data; // Save posts data
+				                renderPosts(); // Render the first page
+				            })
+				            .catch(error => {
+				                console.error('Error loading posts:', error);
+				                document.getElementById('posts-container').innerHTML = '<p>Error loading posts.</p>';
+				            });
+				    </script>
 
 				<!-- Sidebar -->
 					<section id="sidebar">
