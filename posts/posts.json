@@ -14,5 +14,5 @@
     "abstract": "Quantization is a compression technique that reduces the precision of a model's weights and activations, typically represented as floating-point numbers, to lower bit-width formats such as 8-bit or 4-bit integers.",
     "file": "quant_unlearn.md",
     "date": "2025-01-10"
-  },
+  }
 ]
