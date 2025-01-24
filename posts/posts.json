@@ -4,14 +4,15 @@
     "full_title": "Does your LLM truly unlearn? An embarrassingly simple approach to recover unlearned knowledge.",
     "author": "Z. Zhang",
     "abstract": "Quantization is a compression technique that reduces the precision of a model's weights and activations, typically represented as floating-point numbers, to lower bit-width formats such as 8-bit or 4-bit integers.",
-    "file": "blog1.md",
+    "file": "quant_unlearn.md",
     "date": "2025-01-10"
   },
   {
-    "title": "Blog 2",
-    "full_title": "Lorem ipsum dolor amet nullam consequat etiam feugiat",
-    "author": "Jane Doe",
-    "file": "blog2.md",
-    "date": "2025-01-01"
+    "title": "Small Language Models",
+    "full_title": "A Comprehensive Survey of Small Language Models in the Era of Large Language Models",
+    "author": "Fali Wang",
+    "abstract": "Techniques, Enhancements, Applications, Collaboration with LLMs, and Trustworthiness",
+    "file": "slm.md",
+    "date": "2025-01-24"
   }
 ]
