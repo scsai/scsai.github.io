@@ -10,7 +10,7 @@ Link of the survey: https://arxiv.org/abs/2411.03350
 
 ## Paper Overview
 
-![paper-overview](./overview_structure.png)
+![paper-overview](https://scsai.github.io/posts/slm/overview_structure.png)
 
 Figure 1 Paper Overview
 
@@ -32,11 +32,11 @@ Despite the excellent performance of LLMs in complex tasks, their substantial pa
 
 Recently, small language models (SLMs) have demonstrated performance comparable to LLMs while offering advantages in efficiency, cost, flexibility, and customization. Due to their fewer parameters, SLMs save significant computational resources during pre-training and inference, reduce memory and storage needs, and are particularly suitable for resource-limited environments and low-power devices. Therefore, SLMs are increasingly gaining attention as alternatives to LLMs. As shown in Figure 2, the download frequency of SLMs in the Hugging Face community now exceeds that of larger models, and Figure 3 illustrates the growing popularity of SLMs versions over time.
 
-![downloads](./downloads.png)
+![downloads](https://scsai.github.io/posts/slm/downloads.png)
 
 Figure 2 Download Statistics Last Month in Hugging Face for LLMs with Various Model Sizes, obtained on October 7, 2024.
 
-![timeline](./timeline.png)
+![timeline](https://scsai.github.io/posts/slm/figure1.png)
 
 Figure 3 A timeline of existing small language models.
 
@@ -81,7 +81,7 @@ Future directions include using SLMs as proxies to explore more behaviors of LLM
 
 ## Trustworthiness of SLMs
 
-![Trustworthiness Classification](trustworthy_SLM.png)
+![Trustworthiness Classification](https://scsai.github.io/posts/slm/trustworthy_SLM.png)
 Figure 4 Trustworthiness Classification
 
 Language models have become an indispensable part of our daily lives, and our dependency on them is continually increasing. However, they present certain risks due to limitations in privacy, fairness, and other trust dimensions. Consequently, many studies are dedicated to assessing the trustworthiness of language models. Although current research primarily focuses on LLMs, in Section 7, we turn our attention to models with 7 billion parameters or fewer and examine five key trust scenarios: **robustness, privacy, reliability, security, and fairness**, as detailed in Figure 4. In terms of robustness, we discuss both adversarial robustness and out-of-distribution robustness; for security, we primarily analyze misinformation and toxicity issues; in the realm of reliability, our main concerns are hallucination and sycophancy. However, most existing research concentrates on models with at least 7 billion parameters, leaving a gap in the comprehensive analysis of the trustworthiness of SLMs. Therefore, systematically assessing the trustworthiness of SLMs and understanding their performance across various applications is an important direction for future research.

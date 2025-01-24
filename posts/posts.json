@@ -1,5 +1,13 @@
 [
   {
+    "title": "Small Language Models",
+    "full_title": "A Comprehensive Survey of Small Language Models in the Era of Large Language Models",
+    "author": "Fali Wang",
+    "abstract": "Techniques, Enhancements, Applications, Collaboration with LLMs, and Trustworthiness",
+    "file": "slm.md",
+    "date": "2025-01-24"
+  },
+  {
     "title": "LLM Unlearning with Quantization",
     "full_title": "Does your LLM truly unlearn? An embarrassingly simple approach to recover unlearned knowledge.",
     "author": "Z. Zhang",
@@ -7,12 +15,4 @@
     "file": "quant_unlearn.md",
     "date": "2025-01-10"
   },
-  {
-    "title": "Small Language Models",
-    "full_title": "A Comprehensive Survey of Small Language Models in the Era of Large Language Models",
-    "author": "Fali Wang",
-    "abstract": "Techniques, Enhancements, Applications, Collaboration with LLMs, and Trustworthiness",
-    "file": "slm.md",
-    "date": "2025-01-24"
-  }
 ]
