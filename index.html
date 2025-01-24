@@ -54,26 +54,26 @@
 								<ul class="links">
 									<li>
 										<a href="#">
-											<h3>LLM Quantization</h3>
-											<p>Feugiat tempus veroeros dolor</p>
+											<h3>Blogs</h3>
+											<p>Original Research and Findings from SCSAI</p>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<h3>Blog 2</h3>
-											<p>Sed vitae justo condimentum</p>
+											<h3>About US</h3>
+											<p>Learn more about the SCSAI research team</p>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<h3>Blog 3</h3>
-											<p>Phasellus sed ultricies mi congue</p>
+											<h3>BPublications</h3>
+											<p>Our list of publications</p>
 										</a>
 									</li>
 									<li>
 										<a href="#">
-											<h3>Blog 4</h3>
-											<p>Porta lectus amet ultricies</p>
+											<h3>Hiring</h3>
+											<p>Check out our intern and full-time openings</p>
 										</a>
 									</li>
 								</ul>
@@ -90,84 +90,66 @@
 
 				<!-- Main -->
 					<div id="main">
+						<div id="blog-list">
+					        <h1>Blog Posts</h1>
+					        <div id="posts-container">Loading...</div>
+					    </div>
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html?post=blog1.md">LLM Quantization</a></h2>
-										<p>Does your LLM truly unlearn? An embarrassingly simple approach to recover unlearned knowledge.</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-11-01">January 10, 2025</time>
-										<a href="#" class="author"><span class="name">Z. Zhang</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="single.html?post=blog1.md" class="image featured"><img src="posts/blog1/figure1.png" alt="" /></a>
-								<p>Quantization is a compression technique that reduces the precision of a model's weights and activations, typically represented as floating-point numbers, to lower bit-width formats such as 8-bit or 4-bit integers.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html?post=blog1.md" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
+					    <script>
+					        // Load posts.json and render the blog listing
+					        fetch('posts/posts.json')
+					            .then(response => response.json())
+					            .then(posts => {
+					                const container = document.getElementById('posts-container');
+					                container.innerHTML = ''; // Clear loading message
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html">Blog 2</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-25">October 25, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="single.html" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
+					                if (posts.length === 0) {
+					                    container.innerHTML = '<p>No posts available.</p>';
+					                    return;
+					                }
 
-						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="single.html">Blog 3</a></h2>
-										<p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2015-10-22">October 22, 2015</time>
-										<a href="#" class="author"><span class="name">Jane Doe</span><img src="images/avatar.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="single.html" class="image featured"><img src="images/pic03.jpg" alt="" /></a>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Cras vehicula tellus eu ligula viverra, ac fringilla turpis suscipit. Quisque vestibulum rhoncus ligula.</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="single.html" class="button large">Continue Reading</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon solid fa-heart">28</a></li>
-										<li><a href="#" class="icon solid fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
+					                posts.forEach(post => {
+					                    const article = document.createElement('article');
+					                    article.className = 'post';
+
+					                    article.innerHTML = `
+					                        <header>
+					                            <div class="title">
+					                                <h2><a href="single.html?post=${post.file}">${post.title}</a></h2>
+					                                <p>${post.full_title}</p>
+					                            </div>
+					                            <div class="meta">
+					                                <time class="published" datetime="${post.date}">${new Date(post.date).toLocaleDateString()}</time>
+					                                <a href="#" class="author">
+					                                    <span class="name">${post.author}</span>
+					                                    <img src="images/avatar.jpg" alt="Author Avatar" />
+					                                </a>
+					                            </div>
+					                        </header>
+					                        <a href="single.html?post=${post.file}" class="image featured">
+					                            <img src="posts/${post.file.replace('.md', '')}/figure1.png" alt="Featured Image" />
+					                        </a>
+					                        <p>${post.abstract || ''}</p>
+					                        <footer>
+					                            <ul class="actions">
+					                                <li><a href="single.html?post=${post.file}" class="button large">Continue Reading</a></li>
+					                            </ul>
+					                            <ul class="stats">
+					                                <li><a href="#">General</a></li>
+					                                <li><a href="#" class="icon solid fa-heart">28</a></li>
+					                                <li><a href="#" class="icon solid fa-comment">128</a></li>
+					                            </ul>
+					                        </footer>
+					                    `;
+
+					                    container.appendChild(article);
+					                });
+					            })
+					            .catch(error => {
+					                console.error('Error loading posts:', error);
+					                document.getElementById('posts-container').innerHTML = '<p>Error loading posts.</p>';
+					            });
+					    </script>
 
 						<!-- Pagination -->
 							<ul class="actions pagination">

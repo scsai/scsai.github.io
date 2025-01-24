@@ -1,0 +1,17 @@
+[
+  {
+    "title": "LLM Unlearning with Quantization",
+    "full_title": "Does your LLM truly unlearn? An embarrassingly simple approach to recover unlearned knowledge.",
+    "author": "Z. Zhang",
+    "abstract": "Quantization is a compression technique that reduces the precision of a model's weights and activations, typically represented as floating-point numbers, to lower bit-width formats such as 8-bit or 4-bit integers.",
+    "file": "blog1.md",
+    "date": "2025-01-10"
+  },
+  {
+    "title": "Blog 2",
+    "full_title": "Lorem ipsum dolor amet nullam consequat etiam feugiat",
+    "author": "Jane Doe",
+    "file": "blog2.md",
+    "date": "2025-01-01"
+  }
+]
