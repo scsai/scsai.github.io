@@ -36,143 +36,41 @@
             margin: 20px auto; /* Center align images */
         }
     </style>
-    <!-- MathJax Configuration -->
-    <script type="text/javascript">
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']],
-                processEscapes: true,
-                processEnvironments: true
-            },
-            options: {
-                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-                ignoreHtmlClass: 'tex2jax_ignore'
-            }
-        };
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
 </head>
 
-<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
 
-    <!-- Wrapper -->
-    <div id="wrapper">
+    <!-- Header -->
+    <header id="header">
+        <h1><a href="index.html">Amazon SCSAI</a></h1>
+        <nav class="links">
+            <ul>
+                <li><a href="index.html">Blogs</a></li>
+                <li><a href="#">About US</a></li>
+                <li><a href="#">Publications</a></li>
+                <li><a href="#">Hiring</a></li>
+                <li><a href="single_zh.html" id="lang-switch">中文</a></li>
+            </ul>
+        </nav>
+    </header>
 
-        <!-- Header -->
-        <header id="header">
-            <h1><a href="index.html">Amazon SCSAI</a></h1>
-            <nav class="links">
-                <ul>
-                    <li><a href="index.html">Blogs</a></li>
-                    <li><a href="#">About US</a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">Hiring</a></li>
-                    <li><a href="#" id="lang-switch">中文</a></li>
-                </ul>
-            </nav>
-            <nav class="main">
-                <ul>
-                    <li class="menu">
-                        <a class="fa-bars" href="#menu">Menu</a>
-                    </li>
-                </ul>
-            </nav>
-        </header>
-
-        <!-- Main -->
-        <div id="main" style="width: 75%; margin: 0 auto; padding: 20px; max-width: 1200px;">
-            <article class="post">
-                <header>
-                    <div class="title">
-                        <h2 id="blog-title">Loading...</h2>
-                    </div>
-                    <div class="meta">
-                        <time class="published" id="blog-date"></time>
-                        <a href="#" class="author"><span class="name">Amazon SCSAI</span></a>
-                    </div>
-                </header>
-                <div id="blog-content" class="content">
-                    <p>Loading content...</p>
-                </div>
-            </article>
-        </div>
-
+    <!-- Main -->
+    <div id="main">
+        <article>
+            <header>
+                <h1 id="blog-title">Loading...</h1>
+            </header>
+            <section id="blog-content">
+                Loading blog content...
+            </section>
+        </article>
     </div>
 
-    <!-- Scripts -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+</div>
 
-    <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        let postFile = urlParams.get("post");
-        let lang = urlParams.get("lang") || "en"; 
-
-        // Function to update the language switch button
-        function updateLanguageSwitch() {
-            const langSwitch = document.getElementById("lang-switch");
-            
-            // Determine the new language
-            const newLang = lang === "en" ? "zh" : "en";
-            
-            // Modify the post filename (e.g., "blog1.md" -> "blog1_zh.md" and vice versa)
-            const newPostFile = lang === "en" 
-                ? postFile.replace(".md", "_zh.md") 
-                : postFile.replace("_zh.md", ".md");
-
-            // Update the text and link dynamically
-            langSwitch.textContent = lang === "en" ? "切换到 English" : "Switch to 中文";
-            langSwitch.href = `single.html?post=${newPostFile}&lang=${newLang}`;
-        }
-        
-        fetch(postFile)
-            .then(response => {
-                if (!response.ok) throw new Error("Failed to load blog content.");
-                return response.text();
-            })
-            .then(markdown => {
-                const converter = new showdown.Converter({
-                    literalMidWordUnderscores: true,
-                    extensions: [{
-                        type: 'lang',
-                        regex: /(?<!\\)\$(.+?)\$/g,
-                        replace: '\\($1\\)'
-                    }]
-                });
-
-                const html = converter.makeHtml(markdown);
-                const tempDiv = document.createElement("div");
-                tempDiv.innerHTML = html;
-
-                const titleElement = tempDiv.querySelector("h1");
-                const title = titleElement ? titleElement.textContent : "Untitled";
-                document.getElementById("blog-title").textContent = title;
-                if (titleElement) titleElement.remove();
-
-                document.getElementById("blog-content").innerHTML = tempDiv.innerHTML;
-
-                // Adjust images to 80% width
-                document.querySelectorAll("#blog-content img").forEach(img => {
-                    img.style.width = "80%";
-                    img.style.display = "block";
-                    img.style.margin = "0 auto";
-                });
-
-                // Re-render MathJax
-                MathJax.typesetPromise();
-
-                // Update language switch button
-                updateLanguageSwitch();
-            })
-            .catch(error => {
-                document.getElementById("blog-content").innerHTML = `<p>Error: ${error.message}</p>`;
-            });
-    </script>
+<!-- Scripts -->
+<script src="assets/js/blog.js"></script>
 
 </body>
 </html>
