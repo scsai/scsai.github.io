@@ -12,7 +12,7 @@
 
 ## 文章结构
 
-![paper-overview](./overview_structure.png)
+![paper-overview](https://scsai.github.io/posts/slm/overview_structure.png)
 
 图1 文章结构
 
@@ -36,11 +36,11 @@
 
 
 
-![downloads](./downloads.png)
+![downloads](https://scsai.github.io/posts/slm/downloads.png)
 
 图2 Hugging Face上个月下载量（数据获取在2024年10月7日）
 
-![timeline](./timeline.png)
+![timeline](https://scsai.github.io/posts/slm/figure1.png)
 
 图3 SLMs时间线
 
@@ -75,7 +75,7 @@
 
 ## SLMs的可信赖性
 
-![Trustworthiness分类](trustworthy_SLM.png)
+![Trustworthiness Classification](https://scsai.github.io/posts/slm/trustworthy_SLM.png)
 图4 Trustworthiness分类
 
 语言模型已成为我们日常生活中不可或缺的一部分，我们对它们的依赖日益增加。然而，它们在隐私、公平等信任维度上存在局限，带来了一定风险。因此，许多研究致力于评估语言模型的可信赖性。尽管目前的研究主要集中在大型语言模型（LLMs）上，我们在第7章关注7B参数及以下的模型和五个关键的信任场景：**鲁棒性、隐私性、可靠性、安全性和公平性**，详见图4。在鲁棒性方面，我们讨论了对抗性鲁棒性和分布外鲁棒性两种情况；在安全性方面，我们重点分析了误导信息和毒性问题；在可靠性方面，我们主要关注幻觉和谄媚现象。然而，大多数现有研究都集中在具有至少7B参数的模型上，这留下了对小型语言模型（SLMs）可信度全面分析的空白。因此，系统地评估SLMs的可信度并了解其在各种应用中的表现，是未来研究的重要方向。

@@ -30,7 +30,7 @@ footer, header, hgroup, menu, nav, section {
 	display: block;}
 
 body {
-	line-height: 1;
+    line-height: 1;
 }
 
 ol, ul {
@@ -257,12 +257,13 @@ input, select, textarea {
 	}
 
 	code {
-		background: rgba(160, 160, 160, 0.075);
+		background: rgba(240, 240, 240, 0.5);
 		border: solid 1px rgba(160, 160, 160, 0.3);
 		font-family: "Courier New", monospace;
 		font-size: 0.9em;
 		margin: 0 0.25em;
-		padding: 0.25em 0.65em;
+        padding: 2px 4px;
+        border-radius: 3px;
 	}
 
 	pre {

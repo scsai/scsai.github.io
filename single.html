@@ -28,12 +28,6 @@
         p {
             margin-bottom: 1.2em;
         }
-        code {
-            font-family: "Courier New", monospace;
-            background: rgba(240, 240, 240, 0.5);
-            padding: 2px 4px;
-            border-radius: 3px;
-        }
         /* Additional inline CSS for figure width */
         img {
             max-width: 80%;
@@ -59,6 +53,7 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body class="is-preload">
 
     <!-- Wrapper -->
@@ -69,21 +64,15 @@
             <h1><a href="index.html">Amazon SCSAI</a></h1>
             <nav class="links">
                 <ul>
-                    <li><a href="#">Blogs</a></li>
+                    <li><a href="index.html">Blogs</a></li>
                     <li><a href="#">About US</a></li>
                     <li><a href="#">Publications</a></li>
                     <li><a href="#">Hiring</a></li>
-                    <li><a href="#">中文</a></li>
+                    <li><a href="#" id="lang-switch">中文</a></li>
                 </ul>
             </nav>
             <nav class="main">
                 <ul>
-                    <li class="search">
-                        <a class="fa-search" href="#search">Search</a>
-                        <form id="search" method="get" action="#">
-                            <input type="text" name="query" placeholder="Search" />
-                        </form>
-                    </li>
                     <li class="menu">
                         <a class="fa-bars" href="#menu">Menu</a>
                     </li>
@@ -118,56 +107,72 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const postFile = urlParams.get('post');
+        let postFile = urlParams.get("post");
+        let lang = urlParams.get("lang") || "en"; 
 
-        if (postFile) {
-            const postPath = `posts/${postFile}`;
+        // Function to update the language switch button
+        function updateLanguageSwitch() {
+            const langSwitch = document.getElementById("lang-switch");
+            
+            // Determine the new language
+            const newLang = lang === "en" ? "zh" : "en";
+            
+            // Modify the post filename (e.g., "blog1.md" -> "blog1_zh.md" and vice versa)
+            const newPostFile = lang === "en" 
+                ? postFile.replace(".md", "_zh.md") 
+                : postFile.replace("_zh.md", ".md");
 
-            fetch(postPath)
-                .then(response => {
-                    if (!response.ok) throw new Error("Failed to load blog content.");
-                    return response.text();
-                })
-                .then(markdown => {
-                    // Configure Showdown with MathJax inline processing
-                    const converter = new showdown.Converter({
-                        literalMidWordUnderscores: true,
-                        extensions: [{
-                            type: 'lang',
-                            regex: /(?<!\\)\$(.+?)\$/g,
-                            replace: '\\($1\\)'
-                        }]
-                    });
-
-                    const html = converter.makeHtml(markdown);
-
-                    // Extract the first <h1> tag as the title
-                    const tempDiv = document.createElement("div");
-                    tempDiv.innerHTML = html;
-                    const titleElement = tempDiv.querySelector("h1");
-                    const title = titleElement ? titleElement.textContent : "Untitled";
-
-                    // Set the blog title
-                    document.getElementById("blog-title").textContent = title;
-
-                    // Remove the <h1> from the blog content and display the rest
-                    if (titleElement) titleElement.remove();
-                    document.getElementById("blog-content").innerHTML = tempDiv.innerHTML;
-
-                    // Re-render MathJax equations
-                    MathJax.typesetPromise()
-                        .then(() => console.log("MathJax rendering complete."))
-                        .catch(err => console.error("MathJax rendering error:", err));
-                })
-                .catch(error => {
-                    document.getElementById("blog-content").innerHTML = `<p>Error: ${error.message}</p>`;
-                    console.error(error);
-                });
-        } else {
-            document.getElementById("blog-content").innerHTML = '<p>Error: No blog post specified.</p>';
+            // Update the text and link dynamically
+            langSwitch.textContent = lang === "en" ? "切换到 English" : "Switch to 中文";
+            langSwitch.href = `single.html?post=${newPostFile}&lang=${newLang}`;
         }
+        
+        fetch(postFile)
+            .then(response => {
+                if (!response.ok) throw new Error("Failed to load blog content.");
+                return response.text();
+            })
+            .then(markdown => {
+                const converter = new showdown.Converter({
+                    literalMidWordUnderscores: true,
+                    extensions: [{
+                        type: 'lang',
+                        regex: /(?<!\\)\$(.+?)\$/g,
+                        replace: '\\($1\\)'
+                    }]
+                });
+
+                const html = converter.makeHtml(markdown);
+                const tempDiv = document.createElement("div");
+                tempDiv.innerHTML = html;
+
+                const titleElement = tempDiv.querySelector("h1");
+                const title = titleElement ? titleElement.textContent : "Untitled";
+                document.getElementById("blog-title").textContent = title;
+                if (titleElement) titleElement.remove();
+
+                document.getElementById("blog-content").innerHTML = tempDiv.innerHTML;
+
+                // Adjust images to 80% width
+                document.querySelectorAll("#blog-content img").forEach(img => {
+                    img.style.width = "80%";
+                    img.style.display = "block";
+                    img.style.margin = "0 auto";
+                });
+
+                // Re-render MathJax
+                MathJax.typesetPromise();
+
+                // Update language switch button
+                updateLanguageSwitch();
+            })
+            .catch(error => {
+                document.getElementById("blog-content").innerHTML = `<p>Error: ${error.message}</p>`;
+            });
     </script>
+
 </body>
 </html>
