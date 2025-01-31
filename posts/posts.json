@@ -1,18 +1,42 @@
 [
   {
-    "title": "Small Language Models",
-    "full_title": "A Comprehensive Survey of Small Language Models in the Era of Large Language Models",
-    "author": "Fali Wang",
-    "abstract": "Techniques, Enhancements, Applications, Collaboration with LLMs, and Trustworthiness",
-    "file": "slm.md",
+    "title": {
+      "en": "Small Language Models",
+      "zh": "小语言模型"
+    },
+    "full_title": {
+      "en": "A Comprehensive Survey of Small Language Models in the Era of Large Language Models",
+      "zh": "大语言模型时代的小语言模型综述"
+    },
+    "author": "Z. Zhang",
+    "abstract": {
+      "en": "Techniques, Enhancements, Applications, Collaboration with LLMs, and Trustworthiness.",
+      "zh": "技术、增强、应用、与 LLMs 的协作和可信赖性。"
+    },
+    "file": {
+      "en": "slm.md",
+      "zh": "slm_zh.md"
+    },
     "date": "2025-01-24"
   },
   {
-    "title": "LLM Unlearning with Quantization",
-    "full_title": "Does your LLM truly unlearn? An embarrassingly simple approach to recover unlearned knowledge.",
+    "title": {
+      "en": "LLM Unlearning with Quantization",
+      "zh": "LLM量化的遗忘性"
+    },
+    "full_title": {
+      "en": "Does your LLM truly unlearn? An embarrassingly simple approach to recover unlearned knowledge.",
+      "zh": "你的大语言模型真的遗忘了吗？一个令人尴尬的简单方法来恢复已遗忘的知识。"
+    },
     "author": "Z. Zhang",
-    "abstract": "Quantization is a compression technique that reduces the precision of a model's weights and activations, typically represented as floating-point numbers, to lower bit-width formats such as 8-bit or 4-bit integers.",
-    "file": "quant_unlearn.md",
+    "abstract": {
+      "en": "Quantization is a compression technique that reduces the precision of a model's weights and activations, typically represented as floating-point numbers, to lower bit-width formats such as 8-bit or 4-bit integers.",
+      "zh": "量化是一种压缩技术，它通过将模型权重和激活值从浮点数降低到 8 位或 4 位整数来减少精度，从而减少模型大小并提高推理速度。"
+    },
+    "file": {
+      "en": "quant_unlearn.md",
+      "zh": "quant_unlearn_zh.md"
+    },
     "date": "2025-01-10"
-  }
+  },
 ]

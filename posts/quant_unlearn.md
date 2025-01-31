@@ -1,4 +1,4 @@
-# LLM Quantization
+# Unlearn LLM with Quantization
 
 **What is a Large Language Model (LLM)?**
 

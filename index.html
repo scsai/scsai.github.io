@@ -21,8 +21,11 @@
 								<li><a href="#">About US</a></li>
 								<li><a href="#">Publications</a></li>
 								<li><a href="#">Hiring</a></li>
-								<li><a href="#">中文</a></li>
 							</ul>
+							<div id="language-toggle">
+							    <button onclick="switchLanguage('en')">English</button>
+							    <button onclick="switchLanguage('zh')">中文</button>
+							</div>
 						</nav>
 						<nav class="main">
 							<ul>
@@ -90,135 +93,133 @@
 
 				<!-- Main -->
 					<div id="main">
-				        <header>
-				            <h1>Blog Posts</h1>
-				        </header>
-				        <section id="posts-container">
-				            Loading...
-				        </section>
+					    <header>
+					        <h1 id="page-title">Blog Posts</h1>
+					        <button id="lang-switch">Switch to 中文</button>
+					    </header>
+					    <section id="posts-container">
+					        Loading...
+					    </section>
 
-				        <!-- Pagination -->
-				        <ul class="actions pagination">
-				            <li><a href="#" id="prev-page" class="button large previous">Previous Page</a></li>
-				            <li><a href="#" id="next-page" class="button large next">Next Page</a></li>
-				        </ul>
-				    </div>
+					    <!-- Pagination -->
+					    <ul class="actions pagination">
+					        <li><a href="#" id="prev-page" class="button large previous">Previous Page</a></li>
+					        <li><a href="#" id="next-page" class="button large next">Next Page</a></li>
+					    </ul>
+					</div>
 
-				    <script>
-				        const POSTS_PER_PAGE = 5; // Number of posts per page
-				        let currentPage = 1; // Start on the first page
-				        let posts = []; // Array to hold posts data
+					<script>
+					    const POSTS_PER_PAGE = 5; 
+					    let currentPage = 1; 
+					    let posts = []; 
 
-				        // Function to render posts for the current page
-				        function renderPosts() {
-				            const container = document.getElementById('posts-container');
-				            container.innerHTML = ''; // Clear previous posts
+					    // Get current language from URL (default: English)
+					    const urlParams = new URLSearchParams(window.location.search);
+					    let language = urlParams.get("lang") || "en"; 
 
-				            // Calculate the starting and ending index for the current page
-				            const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
-				            const endIndex = startIndex + POSTS_PER_PAGE;
-				            const postsToRender = posts.slice(startIndex, endIndex);
+					    // Function to update URL with new language
+					    function switchLanguage() {
+					        const newLang = language === "en" ? "zh" : "en";
+					        urlParams.set("lang", newLang);
+					        window.location.search = urlParams.toString();
+					    }
 
-				            if (postsToRender.length === 0) {
-				                container.innerHTML = '<p>No posts available.</p>';
-				                return;
-				            }
+					    // Update the language switch button text
+					    document.getElementById("lang-switch").textContent = language === "en" ? "Switch to 中文" : "切换到 English";
+					    document.getElementById("lang-switch").addEventListener("click", switchLanguage);
 
-				            postsToRender.forEach(post => {
-				                const article = document.createElement('article');
-				                article.className = 'post';
+					    // Function to render posts for the current page
+					    function renderPosts() {
+					        const container = document.getElementById('posts-container');
+					        container.innerHTML = ''; 
 
-				                article.innerHTML = `
-				                    <header>
-				                        <div class="title">
-				                            <h2><a href="single.html?post=${post.file}">${post.title}</a></h2>
-				                            <p>${post.full_title}</p>
-				                        </div>
-				                        <div class="meta">
-				                            <time class="published" datetime="${post.date}">${new Date(post.date).toLocaleDateString()}</time>
-				                            <a href="#" class="author">
-				                                <span class="name">${post.author}</span>
-				                                <img src="images/avatar.jpg" alt="Author Avatar" />
-				                            </a>
-				                        </div>
-				                    </header>
-				                    <a href="single.html?post=${post.file}" class="image featured">
-				                        <img src="posts/${post.file.replace('.md', '')}/figure1.png" alt="Featured Image" />
-				                    </a>
-				                    <p>${post.abstract || ''}</p>
-				                    <footer>
-				                        <ul class="actions">
-				                            <li><a href="single.html?post=${post.file}" class="button large">Continue Reading</a></li>
-				                        </ul>
-				                        <ul class="stats">
-				                            <li><a href="#">General</a></li>
-				                            <li><a href="#" class="icon solid fa-heart">28</a></li>
-				                            <li><a href="#" class="icon solid fa-comment">128</a></li>
-				                        </ul>
-				                    </footer>
-				                `;
+					        // Calculate pagination indexes
+					        const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+					        const endIndex = startIndex + POSTS_PER_PAGE;
+					        const postsToRender = posts.slice(startIndex, endIndex);
 
-				                container.appendChild(article);
-				            });
+					        if (postsToRender.length === 0) {
+					            container.innerHTML = '<p>No posts available.</p>';
+					            return;
+					        }
 
-				            updatePaginationControls();
-				        }
+					        postsToRender.forEach(post => {
+					            const article = document.createElement('article');
+					            article.className = 'post';
 
-				        // Function to update the state of pagination buttons
-				        function updatePaginationControls() {
-				            const prevButton = document.getElementById('prev-page');
-				            const nextButton = document.getElementById('next-page');
+					            article.innerHTML = `
+					                <header>
+					                    <div class="title">
+					                        <h2><a href="single.html?post=${post.file[language]}&lang=${language}">${post.title[language]}</a></h2>
+					                        <p>${post.full_title[language]}</p>
+					                    </div>
+					                    <div class="meta">
+					                        <time class="published" datetime="${post.date}">${new Date(post.date).toLocaleDateString(language === "zh" ? "zh-CN" : "en-US", { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+					                        <a href="#" class="author">
+					                            <span class="name">${post.author}</span>
+					                            <img src="images/avatar.jpg" alt="Author Avatar" />
+					                        </a>
+					                    </div>
+					                </header>
+					                <a href="single.html?post=${post.file[language]}&lang=${language}" class="image featured">
+					                    <img src="posts/${post.file[language].replace('.md', '')}/figure1.png" alt="Featured Image" />
+					                </a>
+					                <p>${post.abstract[language] || ''}</p>
+					                <footer>
+					                    <ul class="actions">
+					                        <li><a href="single.html?post=${post.file[language]}&lang=${language}" class="button large">${language === "zh" ? "继续阅读" : "Continue Reading"}</a></li>
+					                    </ul>
+					                </footer>
+					            `;
 
-				            // Disable the previous button if on the first page
-				            if (currentPage === 1) {
-				                prevButton.classList.add('disabled');
-				                prevButton.href = '#';
-				            } else {
-				                prevButton.classList.remove('disabled');
-				                prevButton.href = '#';
-				            }
+					            container.appendChild(article);
+					        });
 
-				            // Disable the next button if on the last page
-				            const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
-				            if (currentPage === totalPages) {
-				                nextButton.classList.add('disabled');
-				                nextButton.href = '#';
-				            } else {
-				                nextButton.classList.remove('disabled');
-				                nextButton.href = '#';
-				            }
-				        }
+					        updatePaginationControls();
+					    }
 
-				        // Event listeners for pagination buttons
-				        document.getElementById('prev-page').addEventListener('click', event => {
-				            event.preventDefault();
-				            if (currentPage > 1) {
-				                currentPage--;
-				                renderPosts();
-				            }
-				        });
+					    // Function to update pagination buttons
+					    function updatePaginationControls() {
+					        const prevButton = document.getElementById('prev-page');
+					        const nextButton = document.getElementById('next-page');
 
-				        document.getElementById('next-page').addEventListener('click', event => {
-				            event.preventDefault();
-				            const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
-				            if (currentPage < totalPages) {
-				                currentPage++;
-				                renderPosts();
-				            }
-				        });
+					        const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
 
-				        // Fetch posts.json and initialize the page
-				        fetch('posts/posts.json')
-				            .then(response => response.json())
-				            .then(data => {
-				                posts = data; // Save posts data
-				                renderPosts(); // Render the first page
-				            })
-				            .catch(error => {
-				                console.error('Error loading posts:', error);
-				                document.getElementById('posts-container').innerHTML = '<p>Error loading posts.</p>';
-				            });
-				    </script>
+					        prevButton.classList.toggle('disabled', currentPage === 1);
+					        nextButton.classList.toggle('disabled', currentPage === totalPages);
+					    }
+
+					    // Event listeners for pagination buttons
+					    document.getElementById('prev-page').addEventListener('click', event => {
+					        event.preventDefault();
+					        if (currentPage > 1) {
+					            currentPage--;
+					            renderPosts();
+					        }
+					    });
+
+					    document.getElementById('next-page').addEventListener('click', event => {
+					        event.preventDefault();
+					        const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
+					        if (currentPage < totalPages) {
+					            currentPage++;
+					            renderPosts();
+					        }
+					    });
+
+					    // Fetch posts.json and initialize the page
+					    fetch('posts/posts.json')
+					        .then(response => response.json())
+					        .then(data => {
+					            posts = data; 
+					            renderPosts(); 
+					        })
+					        .catch(error => {
+					            console.error('Error loading posts:', error);
+					            document.getElementById('posts-container').innerHTML = '<p>Error loading posts.</p>';
+					        });
+					</script>
+
 
 				<!-- Sidebar -->
 					<section id="sidebar">
