@@ -1,11 +1,42 @@
 <!DOCTYPE HTML>
 <html>
-<head>
-    <title>Amazon SCSAI - 博客</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="assets/css/main.css">
+head>
+    <title>Amazon SCSAI Team - Blog</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <style>
+        /* Apply academic font styles */
+        body {
+            font-family: "EB Garamond", "Georgia", "Times New Roman", serif;
+        }
+        #blog-container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "EB Garamond", "Georgia", serif;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+        p {
+            margin-bottom: 1.2em;
+        }
+        /* Additional inline CSS for figure width */
+        img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 20px auto; /* Center align images */
+        }
+    </style>
 </head>
+
 <body class="is-preload">
 
 <!-- Wrapper -->
@@ -39,7 +70,24 @@
 
 </div>
 
-<!-- Scripts -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
+
+<!-- Include MathJax for LaTeX rendering -->
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<!-- Load blog.js -->
 <script src="assets/js/blog.js"></script>
 
 </body>
