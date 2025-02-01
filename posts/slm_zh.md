@@ -1,6 +1,6 @@
 # 最新综述 | 小语言模型：技术、增强、应用、与 LLMs 的协作和可信赖性
 
-![image-20241106205858240](./authorship.png)
+![image-20241106205858240](https://scsai.github.io/posts/slm/authorship.png)
 
 
 
