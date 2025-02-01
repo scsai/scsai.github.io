@@ -209,7 +209,7 @@ input, select, textarea {
 		letter-spacing: 0.25em;
 		line-height: 1.65;
 		margin: 0 0 1em 0;
-		text-transform: uppercase;
+		text-transform: none;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -2795,7 +2795,7 @@ input, select, textarea {
 					font-weight: 800;
 					letter-spacing: 0.25em;
 					margin-top: 0.5em;
-					text-transform: uppercase;
+					text-transform: none;
 					white-space: nowrap;
 				}
 
@@ -2851,7 +2851,7 @@ input, select, textarea {
 					line-height: 1;
 					margin: 0 0 0 2em;
 					padding: 0 0 0 2em;
-					text-transform: uppercase;
+					text-transform: none;
 				}
 
 					.post > footer .stats li:first-child {
@@ -3036,7 +3036,7 @@ input, select, textarea {
 		letter-spacing: 0.25em;
 		line-height: 2.5;
 		margin-top: -1em;
-		text-transform: uppercase;
+		text-transform: none;
 	}
 
 /* Table */
@@ -3192,7 +3192,7 @@ input, select, textarea {
 					font-size: 0.7em;
 					font-weight: 400;
 					letter-spacing: 0.25em;
-					text-transform: uppercase;
+					text-transform: none;
 				}
 
 		#header .main {
