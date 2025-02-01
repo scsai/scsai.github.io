@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </header>
                 <a href="single.html?post=${post.file[language]}&lang=${language}" class="image featured">
-                    <img src="posts/${post.file[language].replace(".md", "")}/figure1.png" alt="Featured Image" />
+                    <img src="posts/${post.file[language].replace("_zh", "").replace(".md", "")}/figure1.png" alt="Featured Image" />
                 </a>
                 <p>${post.abstract[language] || ""}</p>
                 <footer>
